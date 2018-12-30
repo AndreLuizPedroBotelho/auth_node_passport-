@@ -1,5 +1,10 @@
 const mongoose = require('mongoose')
-require('mongoose-type-email')
+const bcrypt = require('bcrypt-nodejs')
+
+var validateEmail = function(email) {
+    var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return re.test(email)
+};
 
 const User = new mongoose.Schema({
     name: {
@@ -11,13 +16,19 @@ const User = new mongoose.Schema({
         required: true
     },
     email: {
-        type: mongoose.SchemaTypes.Email,
-        required: true
+        type: String,
+        required: true,
+        validate: [validateEmail, 'Please fill a valid email address'],
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
     password: {
         type: String,
         required: true
     }
 })
+
+User.methods.genHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(7), null)
+}
 
 module.exports = mongoose.model('User', User)

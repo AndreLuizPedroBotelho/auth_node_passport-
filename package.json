@@ -10,6 +10,7 @@
   "author": "André Luiz Pedro Botelho",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.2.1",
     "express": "^4.16.4",
@@ -17,7 +18,7 @@
     "jquery": "^3.3.1",
     "method-override": "^3.0.0",
     "mongoose": "^5.4.1",
-    "mongoose-type-email": "^1.0.10",
+    "mongoose-type-email": "1.0.5",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-http": "^0.3.0",
