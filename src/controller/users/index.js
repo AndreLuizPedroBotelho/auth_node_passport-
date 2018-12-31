@@ -5,7 +5,7 @@ module.exports = (passport) =>{
 
     router.get('/', require('./all'));
     router.post('/', passport.authenticate(('local-signup'),{
-        successRedirect: '/',
+        successRedirect: '/users',
         failureRedirect: '/users',
     }))
     //router.post('/', require('./create'));

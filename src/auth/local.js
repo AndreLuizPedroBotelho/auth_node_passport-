@@ -45,5 +45,27 @@ module.exports = (passport) =>{
         })
 
     }))
+    passport.use('local-signin',new LocalStrategy({
+        usernameField: 'username',
+        passwordField: 'password',
+        passReqToCallback:   true 
+    },
+        function(req, username, password, cb){
+            User
+                .findOne({username}) 
+                .then((user)=>{
+                    if(!user){
+                        return cb(null,false);
+                    }
 
+                    user.valid(password, (err,result) => {
+                        if(!result || err ){
+                            return cb(null,false);
+                        }
+                        
+                        return cb(null,user);
+                    })
+                })   
+        }
+    ))
 }
